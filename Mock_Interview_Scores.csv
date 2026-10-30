@@ -1,0 +1,12 @@
+Mock,Round,Question,Relevance_25,Technical_Accuracy_25,Clarity_20,Practical_Reasoning_15,Structure_15,Total_100,Status/Notes
+Mock 1,HR,1,21.0,18.0,12.0,8.0,10.0,69.0,Completed; AI-generated coaching estimate; Student pursuing B.Tech IT; interested in full-stack development and AI tools.
+Mock 1,HR,2,24.0,23.0,19.0,14.0,14.0,94.0,Completed; AI-generated coaching estimate; Wants foundational real-world troubleshooting experience with systems and user needs.
+Mock 1,HR,3,24.0,23.0,19.0,12.0,14.0,92.0,"Completed; AI-generated coaching estimate; Quick learner, patient, willing to learn and help users."
+Mock 1,HR,4,16.0,18.0,11.0,8.0,8.0,61.0,"Completed; AI-generated coaching estimate; Said would think slowly about how to solve issue; needs empathy, clarifying questions, systematic troubleshooting and escalation."
+Mock 1,HR,5,19.0,18.0,12.0,9.0,9.0,67.0,"Completed; AI-generated coaching estimate; Said would understand and solve mistake; needs review steps, safe alternatives, documentation and escalation."
+Mock 3,IT Support technical scenarios,Active Directory trust relationship failure,,,,,,96.0,Completed; ChatGPT overall question score. Rubric sub-scores were not recorded.
+Mock 3,IT Support technical scenarios,Printer online but print job stuck,,,,,,98.0,Completed; ChatGPT overall question score. Rubric sub-scores were not recorded.
+Mock 3,IT Support technical scenarios,New employee cannot access shared folder,,,,,,98.0,Completed; ChatGPT overall question score. Rubric sub-scores were not recorded.
+Mock 3,IT Support technical scenarios,Accidentally deleted shared file,,,,,,97.0,Completed; ChatGPT overall question score. Rubric sub-scores were not recorded.
+Mock 3,IT Support technical scenarios,Prioritising three support tickets,,,,,,98.0,Completed; ChatGPT overall question score. Rubric sub-scores were not recorded.
+Separate Gemini evaluation,IT Support five-question mock,Overall evaluation only; see Gemini transcript,,,,,,99.8,Gemini-reported overall estimate and Strong Hire verdict. Separate evaluator/question set; do not average with ChatGPT.
