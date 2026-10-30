@@ -53,3 +53,21 @@ The file contains ten structured answer frameworks, not ten verified personal st
 
 ## Responsible AI
 Verify source claims, label generated questions as suggestions, disclose AI assistance according to course rules, protect private data, respect copyright and do not invent candidate experiences or results.
+
+
+## AI Interview Preparation Workflow
+
+1. Select one of the three target roles: IT Support, Business Analyst, or QA Tester.
+2. Research the role's responsibilities, required skills, and common interview topics using Perplexity and job descriptions.
+3. Open ChatGPT and use the saved prompts from Prompt_Library.md to conduct mock interviews.
+4. Practise HR, technical-concept, and behavioural questions one at a time.
+5. Use the STAR method to prepare structured answers for common interview questions.
+6. Ask AI to evaluate answers using the defined scoring rubric.
+7. Record scores and feedback in the Mock Interview Tracker.
+8. Review feedback, improve answers, and repeat the mock interview.
+9. Verify AI-generated information and record errors or corrections in the Verification Log.
+10. Use the interview checklist and review the before-and-after scores.
+
+**Tools used:** Perplexity, ChatGPT, Gemini, Canva, and Microsoft Excel.
+
+**Workflow type:** No-code AI-assisted workflow. The steps are performed manually using free-tier tools; the workflow does not claim automatic execution.
