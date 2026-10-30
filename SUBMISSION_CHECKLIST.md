@@ -1,29 +1,34 @@
-# Submission Checklist — Final Audit Before GitHub
+# Submission Checklist – Final Status
 
-## Completed project artefacts
+## Completed
+
 - [x] Main report and 10-slide presentation created.
 - [x] Three target-role research summaries created.
 - [x] Reusable prompt library created.
 - [x] First and third ChatGPT mock scores recorded.
 - [x] Separate Gemini mock evaluation recorded.
-- [x] Ten STAR answer frameworks created (personal examples still need truthful completion).
+- [x] Ten interview answers drafted using provided college project experiences.
 - [x] Canva one-page checklist PDF included.
-- [x] Source verification log updated with checked employer/standards sources.
+- [x] Source verification log updated.
 - [x] No-code spreadsheet tracker created with formulas and low-score highlighting.
+- [x] Project files uploaded to GitHub.
+- [x] README reviewed.
+- [x] STAR Answer Bank updated with personal examples.
 
-## Must do before final submission
-- [ ] Replace student name, course/section and submission-date placeholders in report and slides.
-- [ ] Personalise STAR answer frameworks using genuine examples; do not claim template text as personal experience.
-- [ ] Capture genuine screenshots of Perplexity research, ChatGPT mock, Gemini evaluation, Canva checklist and tracker. Do not fabricate screenshots.
-- [ ] Prepare and rehearse a short live demo: run one mock question, analyse the sample image, score an answer, show the tracker and show the checklist.
-- [x] Prepare a labelled synthetic IT Support error screenshot and document image-based AI interpretation in `Multimodal_Demo_Analysis.md`.
-- [ ] Rehearse the live image-analysis demo and capture a genuine screenshot of the AI response if the instructor requires proof of execution.
+## Remaining Before Final Submission
+
+- [ ] Fill in student name, course/section and submission date if required.
+- [ ] Capture genuine screenshots of Perplexity, ChatGPT, Gemini, Canva and the tracker.
+- [ ] Rehearse the live demo: mock question, image analysis, answer scoring, tracker and checklist.
+- [ ] Capture genuine image-analysis output if required by the instructor.
 - [ ] Check course-specific AI disclosure and file naming rules.
-- [ ] Review the report and presentation once more after filling student/course details.
-- [ ] Only then upload the final folder to GitHub.
+- [ ] Review the final report and presentation.
+- [ ] Verify all GitHub files open correctly.
 
-## Honest limitations to disclose
+## Honest Limitations
+
 - AI scores are subjective coaching estimates, not employer assessments.
 - First and third ChatGPT rounds used different questions, so the score change is indicative only.
-- The spreadsheet tracker automates calculations/highlighting, not the entire AI workflow.
-- STAR examples remain templates until replaced with genuine personal experiences.
+- The spreadsheet automates calculations and highlighting, not the entire AI workflow.
+- STAR answers are based on experiences provided for this portfolio and should be adapted truthfully.
+- The multimodal sample image is a synthetic training scenario, not a real incident.
