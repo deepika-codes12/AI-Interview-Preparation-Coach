@@ -71,3 +71,32 @@ Verify source claims, label generated questions as suggestions, disclose AI assi
 **Tools used:** Perplexity, ChatGPT, Gemini, Canva, and Microsoft Excel.
 
 **Workflow type:** No-code AI-assisted workflow. The steps are performed manually using free-tier tools; the workflow does not claim automatic execution.
+
+## Interactive Interview Preparation Application
+
+### Features
+- Technical interview practice
+- HR interview questions
+- Python Developer questions
+- Web Developer questions
+- Answer submission
+- Automated answer scoring
+- Performance feedback
+- Interview progress tracking
+
+### Technologies Used
+- HTML5
+- CSS3
+- JavaScript
+- GitHub Pages
+
+### Live Demo
+https://deepika-codes12.github.io/AI-Interview-Preparation-Coach/
+
+### How to Use
+1. Open the live application.
+2. Select an interview category.
+3. Read the interview question.
+4. Enter your answer.
+5. Click Evaluate My Answer.
+6. View your score and feedback.
