@@ -128,62 +128,100 @@ index=(index+1)%questions[role].length;
 showQuestion();
 }
 
-function evaluateAnswer(){
-const answer=document.getElementById("answer").value.trim();
+async function evaluateAnswer() {
+    const answer = document.getElementById("answer").value.trim();
 
-if(answer.length<15){
-alert("Please enter a detailed answer before evaluation.");
-return;
+    if (answer.length < 15) {
+        alert("Please enter a detailed answer before evaluation.");
+        return;
+    }
+
+    const button = document.querySelector('button[onclick="evaluateAnswer()"]');
+    if (button) {
+        button.disabled = true;
+        button.textContent = "AI Analysing...";
+    }
+
+    document.getElementById("feedback").style.display = "block";
+    document.getElementById("message").textContent =
+        "Loading AI model. Please wait...";
+
+    try {
+        if (!window.aiGenerator) {
+            window.aiGenerator = await pipeline(
+                "text-generation",
+                "onnx-community/Qwen2.5-0.5B-Instruct",
+                { dtype: "q4" }
+            );
+        }
+
+        const question = document.getElementById("question").textContent;
+
+        const messages = [
+            {
+                role: "system",
+                content: `You are an interview evaluator.
+Evaluate the candidate's answer for correctness, relevance,
+clarity and completeness. Return exactly these sections:
+Score: a number from 0 to 100
+Strengths: two short points
+Improvements: two short points
+Feedback: concise overall feedback.
+Be honest and do not reward length alone.`
+            },
+            {
+                role: "user",
+                content: `Question: ${question}\nCandidate answer: ${answer}`
+            }
+        ];
+
+        const result = await window.aiGenerator(messages, {
+            max_new_tokens: 250,
+            do_sample: false
+        });
+
+        const output = result[0].generated_text;
+        const aiText = Array.isArray(output)
+            ? output[output.length - 1].content
+            : output;
+
+        const scoreMatch = aiText.match(/Score:\s*(\d{1,3})/i);
+        const score = scoreMatch
+            ? Math.min(100, Number(scoreMatch[1]))
+            : null;
+
+        document.getElementById("message").textContent = aiText;
+        document.getElementById("strength").textContent =
+            (aiText.match(/Strengths:([\s\S]*?)(?=Improvements:|Feedback:|$)/i) || [null, "See AI feedback above."])[1].trim();
+
+        document.getElementById("improve").textContent =
+            (aiText.match(/Improvements:([\s\S]*?)(?=Feedback:|$)/i) || [null, "See AI feedback above."])[1].trim();
+
+        if (score !== null) {
+            total++;
+            sum += score;
+            document.getElementById("score").textContent = score + "/100";
+            document.getElementById("total").textContent = total;
+            document.getElementById("average").textContent =
+                Math.round(sum / total);
+        } else {
+            document.getElementById("score").textContent = "AI feedback";
+        }
+
+    } catch (error) {
+        document.getElementById("message").textContent =
+            "Could not load the AI model. Check your internet connection and try again. Error: " + error.message;
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.textContent = "Evaluate Answer";
+        }
+    }
 }
-
-const words=answer.split(/\s+/).length;
-const sentences=answer.split(/[.!?]+/).filter(x=>x.trim()).length;
-const keywords=[
-"because","example","experience","result",
-"learn","develop","team","problem","solution",
-"achieved","improved","project"
-];
-
-const found=keywords.filter(k=>
-answer.toLowerCase().includes(k)
-);
-
-let score=35;
-if(words>=30)score+=20;
-if(words>=60)score+=15;
-if(sentences>=3)score+=10;
-if(found.length>=2)score+=10;
-if(found.length>=4)score+=10;
-
-score=Math.min(score,100);
-
-total++;
-sum+=score;
-
-document.getElementById("score").textContent=score+"/100";
-
-document.getElementById("message").textContent=
-score>=80?"Excellent effort! Your answer has good detail.":
-score>=60?"Good attempt! Add more specific examples.":
-"Keep practising. Give a clearer and more detailed answer.";
-
-document.getElementById("strength").textContent=
-words>=30?"You have provided a detailed response.":
-"You have started answering the question.";
-
-document.getElementById("improve").textContent=
-found.length>=2?
-"Try adding more relevant examples and explaining your results.":
-"Include relevant keywords, examples and practical experience.";
-
-document.getElementById("total").textContent=total;
-document.getElementById("average").textContent=Math.round(sum/total);
-
-document.getElementById("feedback").style.display="block";
-}
+window.resetQuestion = resetQuestion;
+window.nextQuestion = nextQuestion;
+window.evaluateAnswer = evaluateAnswer;
 
 showQuestion();
-</script>
-</body>
-</html>
+
 
