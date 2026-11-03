@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Interview Preparation Coach</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#101426;color:#f5f6ff}
+header{padding:25px 8%;background:#191f38;border-bottom:1px solid #343b5d}
+header h1{margin:0;color:#a99aff}
+header p{color:#b8bfd8}
+main{max-width:900px;margin:35px auto;padding:20px}
+.card{background:#1c2340;padding:25px;border-radius:16px;margin-bottom:20px;border:1px solid #343b5d}
+h2{color:#b9aaff}
+label{display:block;margin:15px 0 8px}
+select,textarea{width:100%;padding:13px;border-radius:9px;border:1px solid #555d80;background:#11182e;color:white;font-size:16px}
+textarea{height:145px;resize:vertical}
+button{background:#8068f5;color:white;border:0;padding:13px 20px;border-radius:9px;cursor:pointer;font-weight:bold;margin:8px 5px 0 0}
+button:hover{background:#6249d9}
+.secondary{background:#394362}
+#feedback{display:none;line-height:1.7}
+.score{font-size:38px;color:#a99aff;font-weight:bold}
+.small{color:#b8bfd8;font-size:14px}
+</style>
+</head>
+<body>
+<header>
+<h1>🎯 AI Interview Preparation Coach</h1>
+<p>Practice smarter. Build confidence. Get interview-ready.</p>
+</header>
+
+<main>
+<div class="card">
+<h2>Welcome, Future Professional!</h2>
+<p>Choose your interview category and practise questions to improve your confidence.</p>
+
+<label for="role">Select Interview Category</label>
+<select id="role" onchange="resetQuestion()">
+<option value="technical">Technical Interview</option>
+<option value="hr">HR Interview</option>
+<option value="python">Python Developer</option>
+<option value="web">Web Developer</option>
+</select>
+
+<p class="small" id="count">Question 1</p>
+<h2 id="question"></h2>
+
+<label for="answer">Your Answer</label>
+<textarea id="answer" placeholder="Type your interview answer here..."></textarea>
+
+<button onclick="evaluateAnswer()">Evaluate My Answer</button>
+<button class="secondary" onclick="nextQuestion()">Next Question →</button>
+</div>
+
+<div class="card" id="feedback">
+<h2>Interview Performance Report</h2>
+<div class="score" id="score">0/100</div>
+<p id="message"></p>
+<h3>Strengths</h3>
+<p id="strength"></p>
+<h3>Areas to Improve</h3>
+<p id="improve"></p>
+<h3>Preparation Tip</h3>
+<p>Use the STAR method: Situation, Task, Action and Result. Include relevant examples.</p>
+</div>
+
+<div class="card">
+<h2>My Preparation Progress</h2>
+<p>Questions evaluated: <strong id="total">0</strong></p>
+<p>Average score: <strong id="average">0</strong>/100</p>
+<p class="small">Progress during this session.</p>
+</div>
+</main>
+
+<script>
+const questions={
+technical:[
+"Explain the difference between a compiler and an interpreter.",
+"What is Object-Oriented Programming? Explain its principles.",
+"What is the difference between a stack and a queue?",
+"Explain SQL and NoSQL databases."
+],
+hr:[
+"Tell me about yourself.",
+"What are your strengths and weaknesses?",
+"Why should we hire you?",
+"Where do you see yourself in five years?"
+],
+python:[
+"What are lists and tuples in Python?",
+"Explain the difference between a list and a dictionary.",
+"What are functions in Python?",
+"What is exception handling in Python?"
+],
+web:[
+"What is the difference between HTML, CSS and JavaScript?",
+"What is React and why is it used?",
+"Explain client-server architecture.",
+"What is the difference between GET and POST?"
+]
+};
+
+let index=0;
+let total=0;
+let sum=0;
+
+function showQuestion(){
+const role=document.getElementById("role").value;
+const list=questions[role];
+document.getElementById("question").textContent=list[index];
+document.getElementById("count").textContent=
+"Question "+(index+1)+" of "+list.length;
+document.getElementById("answer").value="";
+document.getElementById("feedback").style.display="none";
+}
+
+function resetQuestion(){
+index=0;
+showQuestion();
+}
+
+function nextQuestion(){
+const role=document.getElementById("role").value;
+index=(index+1)%questions[role].length;
+showQuestion();
+}
+
+function evaluateAnswer(){
+const answer=document.getElementById("answer").value.trim();
+
+if(answer.length<15){
+alert("Please enter a detailed answer before evaluation.");
+return;
+}
+
+const words=answer.split(/\s+/).length;
+const sentences=answer.split(/[.!?]+/).filter(x=>x.trim()).length;
+const keywords=[
+"because","example","experience","result",
+"learn","develop","team","problem","solution",
+"achieved","improved","project"
+];
+
+const found=keywords.filter(k=>
+answer.toLowerCase().includes(k)
+);
+
+let score=35;
+if(words>=30)score+=20;
+if(words>=60)score+=15;
+if(sentences>=3)score+=10;
+if(found.length>=2)score+=10;
+if(found.length>=4)score+=10;
+
+score=Math.min(score,100);
+
+total++;
+sum+=score;
+
+document.getElementById("score").textContent=score+"/100";
+
+document.getElementById("message").textContent=
+score>=80?"Excellent effort! Your answer has good detail.":
+score>=60?"Good attempt! Add more specific examples.":
+"Keep practising. Give a clearer and more detailed answer.";
+
+document.getElementById("strength").textContent=
+words>=30?"You have provided a detailed response.":
+"You have started answering the question.";
+
+document.getElementById("improve").textContent=
+found.length>=2?
+"Try adding more relevant examples and explaining your results.":
+"Include relevant keywords, examples and practical experience.";
+
+document.getElementById("total").textContent=total;
+document.getElementById("average").textContent=Math.round(sum/total);
+
+document.getElementById("feedback").style.display="block";
+}
+
+showQuestion();
+</script>
+</body>
+</html>
+
