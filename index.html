@@ -5,223 +5,497 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Interview Preparation Coach</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#101426;color:#f5f6ff}
-header{padding:25px 8%;background:#191f38;border-bottom:1px solid #343b5d}
-header h1{margin:0;color:#a99aff}
-header p{color:#b8bfd8}
-main{max-width:900px;margin:35px auto;padding:20px}
-.card{background:#1c2340;padding:25px;border-radius:16px;margin-bottom:20px;border:1px solid #343b5d}
-h2{color:#b9aaff}
-label{display:block;margin:15px 0 8px}
-select,textarea{width:100%;padding:13px;border-radius:9px;border:1px solid #555d80;background:#11182e;color:white;font-size:16px}
-textarea{height:145px;resize:vertical}
-button{background:#8068f5;color:white;border:0;padding:13px 20px;border-radius:9px;cursor:pointer;font-weight:bold;margin:8px 5px 0 0}
-button:hover{background:#6249d9}
-.secondary{background:#394362}
-#feedback{display:none;line-height:1.7}
-.score{font-size:38px;color:#a99aff;font-weight:bold}
-.small{color:#b8bfd8;font-size:14px}
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #101426;
+    color: #f5f6ff;
+}
+
+header {
+    padding: 25px 8%;
+    background: #191f38;
+    border-bottom: 1px solid #343b5d;
+}
+
+header h1 {
+    margin: 0;
+    color: #a99aff;
+}
+
+header p {
+    color: #b8bfd8;
+}
+
+main {
+    max-width: 900px;
+    margin: 35px auto;
+    padding: 20px;
+}
+
+.card {
+    background: #1c2340;
+    padding: 25px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #343b5d;
+}
+
+h2 {
+    color: #b9aaff;
+}
+
+label {
+    display: block;
+    margin: 15px 0 8px;
+}
+
+select, textarea {
+    width: 100%;
+    padding: 13px;
+    border-radius: 9px;
+    border: 1px solid #555d80;
+    background: #11182e;
+    color: white;
+    font-size: 16px;
+}
+
+textarea {
+    height: 145px;
+    resize: vertical;
+}
+
+button {
+    background: #8068f5;
+    color: white;
+    border: 0;
+    padding: 13px 20px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 8px 5px 0 0;
+}
+
+button:hover {
+    background: #6249d9;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.secondary {
+    background: #394362;
+}
+
+#feedback {
+    display: none;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.score {
+    font-size: 38px;
+    color: #a99aff;
+    font-weight: bold;
+}
+
+.small {
+    color: #b8bfd8;
+    font-size: 14px;
+}
+
+#status {
+    color: #b9aaff;
+    margin-top: 12px;
+    font-size: 14px;
+}
 </style>
 </head>
+
 <body>
+
 <header>
-<h1>🎯 AI Interview Preparation Coach</h1>
-<p>Practice smarter. Build confidence. Get interview-ready.</p>
+    <h1>🎯 AI Interview Preparation Coach</h1>
+    <p>Practice smarter. Build confidence. Get interview-ready.</p>
 </header>
 
 <main>
+
 <div class="card">
-<h2>Welcome, Future Professional!</h2>
-<p>Choose your interview category and practise questions to improve your confidence.</p>
 
-<label for="role">Select Interview Category</label>
-<select id="role" onchange="resetQuestion()">
-<option value="technical">Technical Interview</option>
-<option value="hr">HR Interview</option>
-<option value="python">Python Developer</option>
-<option value="web">Web Developer</option>
-</select>
+    <h2>Welcome, Future Professional!</h2>
 
-<p class="small" id="count">Question 1</p>
-<h2 id="question"></h2>
+    <p>Choose your interview category and practise questions to improve your confidence.</p>
 
-<label for="answer">Your Answer</label>
-<textarea id="answer" placeholder="Type your interview answer here..."></textarea>
+    <label for="role">Select Interview Category</label>
 
-<button onclick="evaluateAnswer()">Evaluate My Answer</button>
-<button class="secondary" onclick="nextQuestion()">Next Question →</button>
+    <select id="role">
+        <option value="technical">Technical Interview</option>
+        <option value="hr">HR Interview</option>
+        <option value="python">Python Developer</option>
+        <option value="web">Web Developer</option>
+    </select>
+
+    <p class="small" id="count">Question 1 of 4</p>
+
+    <h2 id="question">Loading question...</h2>
+
+    <label for="answer">Your Answer</label>
+
+    <textarea id="answer"
+    placeholder="Type your interview answer here..."></textarea>
+
+    <button id="evaluateBtn">Evaluate My Answer</button>
+
+    <button class="secondary" id="nextBtn">
+        Next Question →
+    </button>
+
+    <p id="status"></p>
+
 </div>
 
 <div class="card" id="feedback">
-<h2>Interview Performance Report</h2>
-<div class="score" id="score">0/100</div>
-<p id="message"></p>
-<h3>Strengths</h3>
-<p id="strength"></p>
-<h3>Areas to Improve</h3>
-<p id="improve"></p>
-<h3>Preparation Tip</h3>
-<p>Use the STAR method: Situation, Task, Action and Result. Include relevant examples.</p>
+
+    <h2>Interview Performance Report</h2>
+
+    <div class="score" id="score">--/100</div>
+
+    <h3>AI Feedback</h3>
+    <p id="message"></p>
+
+    <h3>Strengths</h3>
+    <p id="strength"></p>
+
+    <h3>Areas to Improve</h3>
+    <p id="improve"></p>
+
+    <h3>Preparation Tip</h3>
+    <p>Use the STAR method: Situation, Task, Action and Result. Include relevant examples.</p>
+
 </div>
 
 <div class="card">
-<h2>My Preparation Progress</h2>
-<p>Questions evaluated: <strong id="total">0</strong></p>
-<p>Average score: <strong id="average">0</strong>/100</p>
-<p class="small">Progress during this session.</p>
+
+    <h2>My Preparation Progress</h2>
+
+    <p>Questions evaluated: <strong id="total">0</strong></p>
+
+    <p>Average score: <strong id="average">0</strong>/100</p>
+
+    <p class="small">Progress during this session.</p>
+
 </div>
+
 </main>
 
-<script type="module">
-import { pipeline } from "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1";
-const questions={
-technical:[
+<script>
+
+const questions = {
+
+technical: [
 "Explain the difference between a compiler and an interpreter.",
 "What is Object-Oriented Programming? Explain its principles.",
 "What is the difference between a stack and a queue?",
 "Explain SQL and NoSQL databases."
 ],
-hr:[
+
+hr: [
 "Tell me about yourself.",
 "What are your strengths and weaknesses?",
 "Why should we hire you?",
 "Where do you see yourself in five years?"
 ],
-python:[
+
+python: [
 "What are lists and tuples in Python?",
 "Explain the difference between a list and a dictionary.",
 "What are functions in Python?",
 "What is exception handling in Python?"
 ],
-web:[
+
+web: [
 "What is the difference between HTML, CSS and JavaScript?",
 "What is React and why is it used?",
 "Explain client-server architecture.",
 "What is the difference between GET and POST?"
 ]
+
 };
 
-let index=0;
-let total=0;
-let sum=0;
+let index = 0;
+let total = 0;
+let sum = 0;
+let aiGenerator = null;
+let aiLoading = null;
 
-function showQuestion(){
-const role=document.getElementById("role").value;
-const list=questions[role];
-document.getElementById("question").textContent=list[index];
-document.getElementById("count").textContent=
-"Question "+(index+1)+" of "+list.length;
-document.getElementById("answer").value="";
-document.getElementById("feedback").style.display="none";
+const role = document.getElementById("role");
+const questionElement = document.getElementById("question");
+const answerElement = document.getElementById("answer");
+const feedback = document.getElementById("feedback");
+const statusElement = document.getElementById("status");
+const evaluateButton = document.getElementById("evaluateBtn");
+
+function showQuestion() {
+
+    const list = questions[role.value];
+
+    questionElement.textContent = list[index];
+
+    document.getElementById("count").textContent =
+        "Question " + (index + 1) + " of " + list.length;
+
+    answerElement.value = "";
+
+    feedback.style.display = "none";
+
+    statusElement.textContent = "";
 }
 
-function resetQuestion(){
-index=0;
-showQuestion();
+function resetQuestion() {
+
+    index = 0;
+    showQuestion();
+
 }
 
-function nextQuestion(){
-const role=document.getElementById("role").value;
-index=(index+1)%questions[role].length;
-showQuestion();
+function nextQuestion() {
+
+    index = (index + 1) % questions[role.value].length;
+
+    showQuestion();
+
+}
+
+async function loadAI() {
+
+    if (aiGenerator) return aiGenerator;
+
+    if (aiLoading) return aiLoading;
+
+    aiLoading = (async () => {
+
+        statusElement.textContent =
+            "Connecting to the AI model. First-time download may take several minutes...";
+
+        const { pipeline } = await import(
+            "https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.8.1"
+        );
+
+        try {
+
+            aiGenerator = await pipeline(
+                "text-generation",
+                "onnx-community/Qwen2.5-0.5B-Instruct",
+                {
+                    dtype: "q4",
+                    device: "webgpu"
+                }
+            );
+
+        } catch (gpuError) {
+
+            statusElement.textContent =
+                "WebGPU unavailable. Trying browser CPU mode...";
+
+            aiGenerator = await pipeline(
+                "text-generation",
+                "onnx-community/Qwen2.5-0.5B-Instruct",
+                {
+                    dtype: "q4"
+                }
+            );
+
+        }
+
+        return aiGenerator;
+
+    })();
+
+    try {
+        return await aiLoading;
+    } finally {
+        aiLoading = null;
+    }
+
 }
 
 async function evaluateAnswer() {
-    const answer = document.getElementById("answer").value.trim();
+
+    const answer = answerElement.value.trim();
 
     if (answer.length < 15) {
+
         alert("Please enter a detailed answer before evaluation.");
+
         return;
+
     }
 
-    const button = document.querySelector('button[onclick="evaluateAnswer()"]');
-    if (button) {
-        button.disabled = true;
-        button.textContent = "AI Analysing...";
-    }
+    evaluateButton.disabled = true;
 
-    document.getElementById("feedback").style.display = "block";
+    evaluateButton.textContent = "AI Analysing...";
+
+    feedback.style.display = "block";
+
     document.getElementById("message").textContent =
-        "Loading AI model. Please wait...";
+        "Preparing AI evaluation...";
 
     try {
-        if (!window.aiGenerator) {
-            window.aiGenerator = await pipeline(
-                "text-generation",
-                "onnx-community/Qwen2.5-0.5B-Instruct",
-                { dtype: "q4" }
-            );
-        }
 
-        const question = document.getElementById("question").textContent;
+        const generator = await loadAI();
+
+        statusElement.textContent =
+            "AI model loaded. Analysing your answer...";
 
         const messages = [
+
             {
                 role: "system",
-                content: `You are an interview evaluator.
-Evaluate the candidate's answer for correctness, relevance,
-clarity and completeness. Return exactly these sections:
-Score: a number from 0 to 100
-Strengths: two short points
-Improvements: two short points
-Feedback: concise overall feedback.
-Be honest and do not reward length alone.`
+
+                content: `You are a professional interview evaluator.
+
+Evaluate the candidate's answer based on correctness,
+relevance, clarity and completeness.
+
+Be honest and do not reward answer length alone.
+
+Return the following sections:
+
+Score: A number between 0 and 100.
+
+Strengths: Two specific strengths.
+
+Improvements: Two specific improvements.
+
+Feedback: A short overall evaluation.`
             },
+
             {
                 role: "user",
-                content: `Question: ${question}\nCandidate answer: ${answer}`
+
+                content:
+                    "Interview category: " + role.value +
+                    "\nQuestion: " + questionElement.textContent +
+                    "\nCandidate answer: " + answer
             }
+
         ];
 
-        const result = await window.aiGenerator(messages, {
+        const result = await generator(messages, {
+
             max_new_tokens: 250,
+
             do_sample: false
+
         });
 
         const output = result[0].generated_text;
+
         const aiText = Array.isArray(output)
             ? output[output.length - 1].content
             : output;
 
         const scoreMatch = aiText.match(/Score:\s*(\d{1,3})/i);
+
         const score = scoreMatch
             ? Math.min(100, Number(scoreMatch[1]))
             : null;
 
         document.getElementById("message").textContent = aiText;
+
+        const strengthMatch = aiText.match(
+            /Strengths:\s*([\s\S]*?)(?=Improvements:|Feedback:|$)/i
+        );
+
+        const improveMatch = aiText.match(
+            /Improvements:\s*([\s\S]*?)(?=Feedback:|$)/i
+        );
+
         document.getElementById("strength").textContent =
-            (aiText.match(/Strengths:([\s\S]*?)(?=Improvements:|Feedback:|$)/i) || [null, "See AI feedback above."])[1].trim();
+            strengthMatch
+                ? strengthMatch[1].trim()
+                : "See the complete AI feedback above.";
 
         document.getElementById("improve").textContent =
-            (aiText.match(/Improvements:([\s\S]*?)(?=Feedback:|$)/i) || [null, "See AI feedback above."])[1].trim();
+            improveMatch
+                ? improveMatch[1].trim()
+                : "See the complete AI feedback above.";
 
         if (score !== null) {
+
             total++;
+
             sum += score;
-            document.getElementById("score").textContent = score + "/100";
+
+            document.getElementById("score").textContent =
+                score + "/100";
+
             document.getElementById("total").textContent = total;
+
             document.getElementById("average").textContent =
                 Math.round(sum / total);
+
         } else {
-            document.getElementById("score").textContent = "AI feedback";
+
+            document.getElementById("score").textContent =
+                "AI feedback";
+
         }
 
+        statusElement.textContent =
+            "AI evaluation completed.";
+
     } catch (error) {
+
         document.getElementById("message").textContent =
-            "Could not load the AI model. Check your internet connection and try again. Error: " + error.message;
+            "AI evaluation could not be completed. Please check your internet connection and try again.";
+
+        document.getElementById("strength").textContent =
+            "AI model loading or generation failed.";
+
+        document.getElementById("improve").textContent =
+            error.message;
+
+        statusElement.textContent =
+            "AI model error. Please try again.";
+
+        console.error(error);
+
     } finally {
-        if (button) {
-            button.disabled = false;
-            button.textContent = "Evaluate Answer";
-        }
+
+        evaluateButton.disabled = false;
+
+        evaluateButton.textContent = "Evaluate My Answer";
+
     }
+
 }
-window.resetQuestion = resetQuestion;
-window.nextQuestion = nextQuestion;
-window.evaluateAnswer = evaluateAnswer;
+
+role.addEventListener("change", resetQuestion);
+
+document.getElementById("nextBtn").addEventListener(
+    "click",
+    nextQuestion
+);
+
+evaluateButton.addEventListener(
+    "click",
+    evaluateAnswer
+);
 
 showQuestion();
 
+</script>
 
+</body>
+</html>
